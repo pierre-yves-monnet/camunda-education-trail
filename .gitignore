@@ -1,2 +1,4 @@
 # Project exclude paths
 /target/
+/.idea
+/camunda-db.mv.db
