@@ -107,22 +107,18 @@
 
 
         <!-- Add your own dependencies here, if in compile scope, they are added to the jar -->
+        <!-- <version>2.4.5</version> -->
+
+        <!-- <version>3.0.9</version>-->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
-            <!-- <version>3.0.9</version>-->
             <version>2.4.5</version>
         </dependency>
-    </dependencies>
 
+    </dependencies>
     <repositories>
 
-        <repository>
-            <id>camunda-bpm-nexus</id>
-            <name>Camunda Maven Repository</name>
-            <url>https://camunda.jfrog.io/artifactory/public/</url>
-        </repository>
-        <!--
         <repository>
             <id>central</id>
             <name>Central Repository</name>
@@ -132,7 +128,14 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        -->
+
+        <repository>
+            <id>camunda-bpm-nexus</id>
+            <name>Camunda Maven Repository</name>
+            <url>https://camunda.jfrog.io/artifactory/public/</url>
+        </repository>
+
+
         <!-- enable this for EE dependencies (requires credentials in ~/.m2/settings.xml)
         <repository>
           <id>camunda-bpm-nexus-ee</id>
