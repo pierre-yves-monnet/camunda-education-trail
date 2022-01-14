@@ -12,15 +12,16 @@ public class Budget implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         double budget = 0;
+
         try {
             String fromCountry = (String) execution.getVariable("fromCountry");
             String toCountry = (String) execution.getVariable("toCountry");
             Boolean needPlaneTicket = (Boolean) execution.getVariable("planeTicket");
             Boolean needAirbnb = (Boolean) execution.getVariable("airbnb");
             int nbParticipants = (Integer) execution.getVariable("nbParticipants");
-            int nbDays = (Integer) execution.getVariable("nbDays");
-            if (needPlaneTicket) {
+            int nbDays = Integer.parseInt(execution.getVariable("nbDays").toString());
 
+            if (Boolean.TRUE.equals(needPlaneTicket)) {
                 double oneTicket = 0;
                 if (fromCountry.equals(toCountry))
                     oneTicket = 200;
@@ -28,7 +29,8 @@ public class Budget implements JavaDelegate {
                     oneTicket = 1000;
                 budget += oneTicket * (nbParticipants == 0 ? 1 : nbParticipants);
             }
-            if (needAirbnb) {
+
+            if (Boolean.TRUE.equals(needAirbnb)) {
                 budget += 150 * nbDays;
             }
         } catch (Exception e) {

@@ -1,20 +1,7 @@
+Object needAirbnb = task.execution.getVariable("needAirbnb");
+if (needAirbnb==null)
+  task.execution.setVariable("needAirbnb2", false);
 
-
------------------------------ listener AFTER task
-List<String> listParticipants = task.execution.getVariable("listParticipants");
-
-List<Map<String,Object>> listParticipantsValidation = task.execution.getVariable("listParticipantsValidation");
-if (listParticipantsValidation==null)
-  listParticipantsValidation= new ArrayList();
-
-if (listParticipants!=null && listParticipantsValidation.size()<listParticipants.size())
-    listParticipantsValidation.resize( listParticipant.size());
-
-Map<String,Object> validation= new HashMap<String,Object>');
-validation.put("accepted", accepted);
-validation.put("comments", comments);
-listParticipantsValidation.put(0, validation);
-task.execution.setVariable("listParticipantsValidation", listParticipantsValidation);
-
-
-
+Object needPlane = task.execution.getVariable("needPlane ");
+if (needPlane ==null)
+  task.execution.setVariable("needPlane ", false);
