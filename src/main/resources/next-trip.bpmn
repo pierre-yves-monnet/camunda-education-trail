@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" camunda:diagramRelationId="934421f7-1cfa-4435-a16a-6663bc482f2f">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" camunda:diagramRelationId="934421f7-1cfa-4435-a16a-6663bc482f2f">
   <bpmn:collaboration id="Collaboration_1vijwgv">
     <bpmn:participant id="Participant_0qctar5" name="Trip organization" processRef="nextTrip" />
   </bpmn:collaboration>
   <bpmn:process id="nextTrip" name="Next trip" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1mi8kgm">
       <bpmn:lane id="Lane_00lr4ev" name="Preparation">
-        <bpmn:flowNodeRef>Activity_0bp38yr</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_1l2a67o</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>PrepareLuggage</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GuideAccepted</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0ey1oka</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0c2gt49</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>BookAGuide</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_185mf06" name="Trip organization">
-        <bpmn:flowNodeRef>Event_0kwq1i3</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_1rflns7</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_18t5vt4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StatusOnTicket</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>BuyPlaneTicket</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>CreateBudget</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0hzzquo</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0r0i764</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_08octfk</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>BuyAirbnb</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_0i1iubn" name="Decision">
-        <bpmn:flowNodeRef>Activity_1dodof7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ChooseDestination</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ValidationByFamily</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>BuildParticipants</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_1npawjr</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_016swac</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GatewayAccepted</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>PostMortem</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_05xd471</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_05m807d</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ConsolidateVote</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:userTask id="Activity_1dodof7" name="Choose a destination">
+    <bpmn:userTask id="ChooseDestination" name="Choose a destination">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="country" label="Country" type="string" />
@@ -51,27 +51,27 @@
       </bpmn:extensionElements>
       <bpmn:outgoing>Flow_0o6w2ug</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_00ll1gj" sourceRef="Activity_0c2gt49" targetRef="Event_1l2a67o" />
-    <bpmn:sequenceFlow id="Flow_0t9zuuh" sourceRef="Activity_08octfk" targetRef="Gateway_0r0i764" />
-    <bpmn:sequenceFlow id="Flow_1to9g6k" sourceRef="Gateway_0r0i764" targetRef="Activity_0c2gt49" />
-    <bpmn:sequenceFlow id="Flow_1dwqa0s" name="Airbnb" sourceRef="Gateway_0hzzquo" targetRef="Activity_08octfk">
+    <bpmn:sequenceFlow id="Flow_00ll1gj" sourceRef="BookAGuide" targetRef="GuideAccepted" />
+    <bpmn:sequenceFlow id="Flow_0t9zuuh" sourceRef="BuyAirbnb" targetRef="Gateway_0r0i764" />
+    <bpmn:sequenceFlow id="Flow_1to9g6k" sourceRef="Gateway_0r0i764" targetRef="BookAGuide" />
+    <bpmn:sequenceFlow id="Flow_1dwqa0s" name="Airbnb" sourceRef="Gateway_0hzzquo" targetRef="BuyAirbnb">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${needAirbnb}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1hak8jl" sourceRef="Activity_0bp38yr" targetRef="Event_0ey1oka" />
-    <bpmn:sequenceFlow id="Flow_0ufu6ag" sourceRef="Event_1l2a67o" targetRef="Activity_0bp38yr" />
-    <bpmn:sequenceFlow id="Flow_1xb23c3" sourceRef="Event_0kwq1i3" targetRef="Gateway_0r0i764" />
-    <bpmn:sequenceFlow id="Flow_04rkcep" sourceRef="Activity_1rflns7" targetRef="Event_0kwq1i3" />
-    <bpmn:sequenceFlow id="Flow_1qs02j2" name="Plane" sourceRef="Gateway_0hzzquo" targetRef="Activity_1rflns7">
+    <bpmn:sequenceFlow id="Flow_1hak8jl" sourceRef="PrepareLuggage" targetRef="Event_0ey1oka" />
+    <bpmn:sequenceFlow id="Flow_0ufu6ag" sourceRef="GuideAccepted" targetRef="PrepareLuggage" />
+    <bpmn:sequenceFlow id="Flow_1xb23c3" sourceRef="StatusOnTicket" targetRef="Gateway_0r0i764" />
+    <bpmn:sequenceFlow id="Flow_04rkcep" sourceRef="BuyPlaneTicket" targetRef="StatusOnTicket" />
+    <bpmn:sequenceFlow id="Flow_1qs02j2" name="Plane" sourceRef="Gateway_0hzzquo" targetRef="BuyPlaneTicket">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${needPlane}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_17dcee4" sourceRef="Activity_18t5vt4" targetRef="Gateway_0hzzquo" />
-    <bpmn:sequenceFlow id="Flow_0itar9d" name="Yes" sourceRef="Gateway_1npawjr" targetRef="Activity_18t5vt4">
+    <bpmn:sequenceFlow id="Flow_17dcee4" sourceRef="CreateBudget" targetRef="Gateway_0hzzquo" />
+    <bpmn:sequenceFlow id="Flow_0itar9d" name="Yes" sourceRef="GatewayAccepted" targetRef="CreateBudget">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${allAccepted}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1iyxsk3" sourceRef="Activity_016swac" targetRef="Event_05xd471" />
-    <bpmn:sequenceFlow id="Flow_0hzbthf" name="No" sourceRef="Gateway_1npawjr" targetRef="Activity_016swac" />
-    <bpmn:sequenceFlow id="Flow_1oc4wro" sourceRef="ValidationByFamily" targetRef="Activity_05m807d" />
-    <bpmn:sequenceFlow id="Flow_0o6w2ug" sourceRef="StartEvent_1" targetRef="Activity_1dodof7" />
+    <bpmn:sequenceFlow id="Flow_1iyxsk3" sourceRef="PostMortem" targetRef="Event_05xd471" />
+    <bpmn:sequenceFlow id="Flow_0hzbthf" name="No" sourceRef="GatewayAccepted" targetRef="PostMortem" />
+    <bpmn:sequenceFlow id="Flow_1oc4wro" sourceRef="ValidationByFamily" targetRef="ConsolidateVote" />
+    <bpmn:sequenceFlow id="Flow_0o6w2ug" sourceRef="StartEvent_1" targetRef="ChooseDestination" />
     <bpmn:sequenceFlow id="Flow_1972di7" sourceRef="Gateway_0hzzquo" targetRef="Gateway_0r0i764" />
     <bpmn:userTask id="ValidationByFamily" name="Validation by the family">
       <bpmn:extensionElements>
@@ -90,7 +90,7 @@
       <bpmn:outgoing>Flow_1oc4wro</bpmn:outgoing>
       <bpmn:multiInstanceLoopCharacteristics camunda:collection="listParticipants" camunda:elementVariable="oneParticipant" />
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_16kcl9b" sourceRef="Activity_1dodof7" targetRef="BuildParticipants" />
+    <bpmn:sequenceFlow id="Flow_16kcl9b" sourceRef="ChooseDestination" targetRef="BuildParticipants" />
     <bpmn:sequenceFlow id="Flow_1ociqnp" sourceRef="BuildParticipants" targetRef="ValidationByFamily" />
     <bpmn:scriptTask id="BuildParticipants" name="Build ParticipantList" camunda:asyncAfter="true" scriptFormat="groovy" camunda:resultVariable="listParticipants">
       <bpmn:incoming>Flow_16kcl9b</bpmn:incoming>
@@ -107,21 +107,21 @@ while (st.hasMoreTokens()) {
 }
 return listParticipants;</bpmn:script>
     </bpmn:scriptTask>
-    <bpmn:exclusiveGateway id="Gateway_1npawjr" name="Accepted?" default="Flow_0hzbthf">
+    <bpmn:exclusiveGateway id="GatewayAccepted" name="Accepted?" default="Flow_0hzbthf">
       <bpmn:incoming>Flow_0zecaj7</bpmn:incoming>
       <bpmn:outgoing>Flow_0hzbthf</bpmn:outgoing>
       <bpmn:outgoing>Flow_0itar9d</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:intermediateCatchEvent id="Event_0kwq1i3" name="Status on ticket">
+    <bpmn:intermediateCatchEvent id="StatusOnTicket" name="Status on ticket">
       <bpmn:incoming>Flow_04rkcep</bpmn:incoming>
       <bpmn:outgoing>Flow_1xb23c3</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0hmxi6f" messageRef="Message_08b7370" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:serviceTask id="Activity_1rflns7" name="Buy plane ticket" camunda:class="org.camunda.educational.nexttrip.OrderPlaneTicket">
+    <bpmn:serviceTask id="BuyPlaneTicket" name="Buy plane ticket" camunda:class="org.camunda.educational.nexttrip.OrderPlaneTicket">
       <bpmn:incoming>Flow_1qs02j2</bpmn:incoming>
       <bpmn:outgoing>Flow_04rkcep</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_18t5vt4" name="Create budget" camunda:asyncAfter="true" camunda:class="org.camunda.educational.nexttrip.Budget">
+    <bpmn:serviceTask id="CreateBudget" name="Create budget" camunda:class="org.camunda.educational.nexttrip.Budget">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="nbParticipants">
@@ -146,11 +146,11 @@ return st.countTokens();</camunda:script>
       <bpmn:outgoing>Flow_1dwqa0s</bpmn:outgoing>
       <bpmn:outgoing>Flow_1972di7</bpmn:outgoing>
     </bpmn:inclusiveGateway>
-    <bpmn:userTask id="Activity_0bp38yr" name="Prepare luggage">
+    <bpmn:userTask id="PrepareLuggage" name="Prepare luggage">
       <bpmn:incoming>Flow_0ufu6ag</bpmn:incoming>
       <bpmn:outgoing>Flow_1hak8jl</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:intermediateCatchEvent id="Event_1l2a67o" name="Guide accept">
+    <bpmn:intermediateCatchEvent id="GuideAccepted" name="Guide accepted">
       <bpmn:incoming>Flow_00ll1gj</bpmn:incoming>
       <bpmn:outgoing>Flow_0ufu6ag</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1oni52n" messageRef="Message_04c0rgp" />
@@ -158,7 +158,7 @@ return st.countTokens();</camunda:script>
     <bpmn:endEvent id="Event_0ey1oka" name="New trip!">
       <bpmn:incoming>Flow_1hak8jl</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:task id="Activity_0c2gt49" name="Book a guide">
+    <bpmn:task id="BookAGuide" name="Book a guide">
       <bpmn:incoming>Flow_1to9g6k</bpmn:incoming>
       <bpmn:outgoing>Flow_00ll1gj</bpmn:outgoing>
     </bpmn:task>
@@ -168,19 +168,19 @@ return st.countTokens();</camunda:script>
       <bpmn:incoming>Flow_1972di7</bpmn:incoming>
       <bpmn:outgoing>Flow_1to9g6k</bpmn:outgoing>
     </bpmn:inclusiveGateway>
-    <bpmn:serviceTask id="Activity_08octfk" name="Buy Airbnb" camunda:class=" org.camunda.educational.nexttrip.OrderAirbnb">
+    <bpmn:serviceTask id="BuyAirbnb" name="Buy Airbnb" camunda:class="org.camunda.educational.nexttrip.OrderAirbnb">
       <bpmn:incoming>Flow_1dwqa0s</bpmn:incoming>
       <bpmn:outgoing>Flow_0t9zuuh</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_016swac" name="Post mortem">
+    <bpmn:userTask id="PostMortem" name="Post Mortem">
       <bpmn:incoming>Flow_0hzbthf</bpmn:incoming>
       <bpmn:outgoing>Flow_1iyxsk3</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:endEvent id="Event_05xd471" name="No trip there">
       <bpmn:incoming>Flow_1iyxsk3</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0zecaj7" sourceRef="Activity_05m807d" targetRef="Gateway_1npawjr" />
-    <bpmn:serviceTask id="Activity_05m807d" name="Consolidate result" camunda:class="org.camunda.educational.nexttrip.ConsolidateResult">
+    <bpmn:sequenceFlow id="Flow_0zecaj7" sourceRef="ConsolidateVote" targetRef="GatewayAccepted" />
+    <bpmn:serviceTask id="ConsolidateVote" name="Consolidate Vote" camunda:class="org.camunda.educational.nexttrip.ConsolidateResult">
       <bpmn:incoming>Flow_1oc4wro</bpmn:incoming>
       <bpmn:outgoing>Flow_0zecaj7</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -294,7 +294,7 @@ return st.countTokens();</camunda:script>
         <di:waypoint x="1350" y="600" />
         <di:waypoint x="1392" y="600" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Activity_03a8ya4_di" bpmnElement="Activity_1dodof7">
+      <bpmndi:BPMNShape id="Activity_03a8ya4_di" bpmnElement="ChooseDestination">
         <dc:Bounds x="280" y="138" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
@@ -306,22 +306,22 @@ return st.countTokens();</camunda:script>
       <bpmndi:BPMNShape id="Activity_1x2s9dj_di" bpmnElement="BuildParticipants">
         <dc:Bounds x="400" y="138" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1npawjr_di" bpmnElement="Gateway_1npawjr" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="Gateway_1npawjr_di" bpmnElement="GatewayAccepted" isMarkerVisible="true">
         <dc:Bounds x="815" y="153" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="815" y="123" width="51" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_09xkdl2_di" bpmnElement="Event_0kwq1i3">
+      <bpmndi:BPMNShape id="Event_09xkdl2_di" bpmnElement="StatusOnTicket">
         <dc:Bounds x="1172" y="332" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1152" y="375" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1fndlq1_di" bpmnElement="Activity_1rflns7">
+      <bpmndi:BPMNShape id="Activity_1fndlq1_di" bpmnElement="BuyPlaneTicket">
         <dc:Bounds x="1030" y="310" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0dpu122_di" bpmnElement="Activity_18t5vt4">
+      <bpmndi:BPMNShape id="Activity_0dpu122_di" bpmnElement="CreateBudget">
         <dc:Bounds x="790" y="310" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0rrvqzr_di" bpmnElement="Gateway_0hzzquo">
@@ -330,13 +330,13 @@ return st.countTokens();</camunda:script>
           <dc:Bounds x="920" y="303" width="60" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0c6gk4v_di" bpmnElement="Activity_0bp38yr">
+      <bpmndi:BPMNShape id="Activity_0c6gk4v_di" bpmnElement="PrepareLuggage">
         <dc:Bounds x="1470" y="560" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1xt8mgy_di" bpmnElement="Event_1l2a67o">
+      <bpmndi:BPMNShape id="Event_1xt8mgy_di" bpmnElement="GuideAccepted">
         <dc:Bounds x="1392" y="582" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1377" y="625" width="66" height="14" />
+          <dc:Bounds x="1371" y="625" width="78" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0ey1oka_di" bpmnElement="Event_0ey1oka">
@@ -345,7 +345,7 @@ return st.countTokens();</camunda:script>
           <dc:Bounds x="1598" y="628" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0c2gt49_di" bpmnElement="Activity_0c2gt49">
+      <bpmndi:BPMNShape id="Activity_0c2gt49_di" bpmnElement="BookAGuide">
         <dc:Bounds x="1250" y="560" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0z65xhy_di" bpmnElement="Gateway_0r0i764">
@@ -354,10 +354,10 @@ return st.countTokens();</camunda:script>
           <dc:Bounds x="907" y="241" width="85" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_19s50z3_di" bpmnElement="Activity_08octfk">
+      <bpmndi:BPMNShape id="Activity_19s50z3_di" bpmnElement="BuyAirbnb">
         <dc:Bounds x="1030" y="430" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0lg3fll_di" bpmnElement="Activity_016swac">
+      <bpmndi:BPMNShape id="Activity_0lg3fll_di" bpmnElement="PostMortem">
         <dc:Bounds x="970" y="138" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_05xd471_di" bpmnElement="Event_05xd471">
@@ -366,7 +366,7 @@ return st.countTokens();</camunda:script>
           <dc:Bounds x="1200" y="203" width="61" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_03f7k4o_di" bpmnElement="Activity_05m807d">
+      <bpmndi:BPMNShape id="Activity_03f7k4o_di" bpmnElement="ConsolidateVote">
         <dc:Bounds x="670" y="138" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>

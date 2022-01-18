@@ -116,6 +116,18 @@
             <version>2.4.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.camunda.bpm.extension</groupId>
+            <artifactId>camunda-bpm-junit5</artifactId>
+            <version>1.0.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.assert</groupId>
+            <artifactId>camunda-bpm-assert</artifactId>
+            <version>12.0.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <repositories>
 

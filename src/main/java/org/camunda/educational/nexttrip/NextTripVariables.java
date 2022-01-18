@@ -14,6 +14,11 @@ public class NextTripVariables {
      * Local variable used in the Multi instance value
      */
     public static final String LOCAL_ONE_PARTICIPANT = "oneParticipant";
+
+    /**
+     * Participants given by the users, separate by a ; : "Pierre;Paul;Jacques"
+     */
+    public static final String PARTICIPANTS = "participants";
     /**
      * List of String
      */
@@ -23,6 +28,13 @@ public class NextTripVariables {
      * All voters accept the destination
      */
     public static final String ALL_ACCEPTED = "allAccepted";
+
+
+    public static final String REQUESTER = "requester";
+    public static final String NEED_PLANE = "needPlane";
+    public static final String NEED_AIRBNB = "needAirbnb";
+    public static final String DATE_TRIP = "dateTrip";
+    public static final String COUNTRY = "country";
 
     /**
      * class of constant

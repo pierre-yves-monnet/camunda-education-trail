@@ -5,7 +5,7 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import java.util.logging.Logger;
 
-public class OrderAirbnb  implements JavaDelegate {
+public class OrderAirbnb implements JavaDelegate {
     Logger logger = Logger.getLogger(OrderAirbnb.class.getName());
 
     @Override
