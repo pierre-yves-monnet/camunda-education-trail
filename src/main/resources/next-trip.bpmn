@@ -121,7 +121,7 @@ return listParticipants;</bpmn:script>
       <bpmn:incoming>Flow_1qs02j2</bpmn:incoming>
       <bpmn:outgoing>Flow_04rkcep</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="CreateBudget" name="Create budget" camunda:class="org.camunda.educational.nexttrip.Budget">
+    <bpmn:serviceTask id="CreateBudget" name="Create budget" camunda:delegateExpression="${Budget}">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="nbParticipants">

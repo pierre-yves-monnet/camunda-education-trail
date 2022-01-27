@@ -1,15 +1,24 @@
 package org.camunda.educational.nexttrip;
 
+import org.camunda.bpm.engine.impl.bpmn.behavior.ServiceTaskDelegateExpressionActivityBehavior;
 import org.camunda.bpm.engine.rest.dto.runtime.ActivityInstanceDto;
 import org.camunda.bpm.engine.runtime.ActivityInstance;
 import org.camunda.bpm.engine.runtime.Job;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.test.Deployment;
+import org.camunda.bpm.engine.test.mock.Mocks;
 import org.camunda.bpm.extension.junit5.test.ProcessEngineExtension;
+import org.camunda.bpm.extension.mockito.DelegateExpressions;
+import org.camunda.bpm.extension.mockito.mock.FluentJavaDelegateMock;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,14 +35,34 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.task;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.taskService;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.withVariables;
 
+import org.camunda.bpm.extension.mockito.CamundaMockito;
+
 @ExtendWith(ProcessEngineExtension.class)
 
 // see https://camunda.com/best-practices/testing-process-definitions/
 public class NextTripJUnitTest {
 
+    // https://camunda.com/best-practices/testing-process-definitions/#_mock_the_business_service_methods
+    // https://github.com/camunda-community-hub/camunda-bpm-mockito#mock-listener-and-delegate-behavior
+    @Mock
+    private BudgetMock mockBudget;
+
+    @BeforeEach
+    public void setup() {
+        //Mocks.register("Budget", mockBudget);
+    }
+    @AfterEach
+    public void teardown() {
+        Mocks.reset();
+    }
     @Test
     @Deployment(resources = "next-trip.bpmn")
     public void testHappyPath() {
+
+        // DelegateExpressions.registerJavaDelegateMock("Budget").onExecutionSetVariable("budget", 2155);
+
+        Mocks.register("Budget", new BudgetMock());
+        // CamundaMockito.autoMock("next-trip.bpmn");
         // Create a HashMap to put in variables for the process instance
         Map<String, Object> variables = withVariables(NextTripVariables.REQUESTER, "Norbert");
         // Start process with Java API and variables
@@ -82,6 +111,9 @@ public class NextTripJUnitTest {
         Assert.assertEquals(1, runtimeService().createExecutionQuery()
                 .processVariableValueEquals(NextTripVariables.REQUESTER, "Norbert").messageEventSubscriptionName("WaitTicket")
                 .count());
+
+        // Assert.assertEquals(2155, runtimeService().getVariable(processInstance.getId(), "budget"));
+        Assert.assertEquals(13553, runtimeService().getVariable(processInstance.getId(), "budget"));
 
         Map<String, Object> correlationKeys = new HashMap<>();
         correlationKeys.put(NextTripVariables.REQUESTER, "Norbert");

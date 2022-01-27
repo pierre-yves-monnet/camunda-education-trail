@@ -1,10 +1,15 @@
 package org.camunda.educational.nexttrip;
 
+
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.springframework.boot.context.properties.bind.Name;
+import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
 
+
+@Component
 public class Budget implements JavaDelegate {
     Logger logger = Logger.getLogger(Budget.class.getName());
 
