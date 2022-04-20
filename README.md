@@ -29,6 +29,9 @@ spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.groovy.templ
 
 # Fun with Flags
 ## Docker
+
+Documentation are under d:\camunda\docker too.
+
 https://docs.camunda.org/manual/7.16/installation/docker/
 Community:
 
@@ -43,34 +46,24 @@ Login Okta / password Okta
 $ docker pull registry.camunda.cloud/cambpm-ee/camunda-bpm-platform-ee:7.16.0
 ````
 
-Use this docker compose file:
-````
-version: '3'
-services:
-camunda-postgres:
-image: registry.camunda.cloud/cambpm-ee/camunda-bpm-platform-ee:${DISTRO:-7.16.0}
-environment:
-- DB_DRIVER=org.postgresql.Driver
-- DB_URL=jdbc:postgresql://postgres:5432/camunda
-- DB_USERNAME=camunda
-- DB_PASSWORD=camunda
-- WAIT_FOR=postgres:5433
-links:
-- postgres
-ports:
-- "9080:8080"
-restart: unless-stopped
+docker run -d --name db -p 5433:5432  -e POSTGRES_USER=camunda -e POSTGRES_PASSWORD=camunda postgres:9.6
 
-    postgres:
-        image: postgres:9.6
-        environment:
-            - POSTGRES_USER=camunda
-            - POSTGRES_PASSWORD=camunda
-        expose:
-            - "5433"
-        ports:
-            - "5433:5432"
-````
+docker run -d --name camunda -p 8080:8080  -e DB_DRIVER=org.postgresql.Driver -e DB_URL=jdbc:postgresql://localhost:5433/camunda -e DB_USERNAME=camunda -e DB_PASSWORD=camunda registry.camunda.cloud/cambpm-ee/camunda-bpm-platform-ee:7.16.0
+
+Start just docker postgres
+
+Via Docker compose : see file docker-compose.yml
+
+
+db:
+image: postgres:9.6
+environment:
+- POSTGRES_USER=camunda
+- POSTGRES_PASSWORD=camunda
+expose:
+- "5433"
+ports:
+- "5433:5432"
 
 Tips are:
   	

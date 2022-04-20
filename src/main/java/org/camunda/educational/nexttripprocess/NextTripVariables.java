@@ -1,4 +1,4 @@
-package org.camunda.educational.nexttrip;
+package org.camunda.educational.nexttripprocess;
 
 public class NextTripVariables {
     /**

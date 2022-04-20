@@ -1,4 +1,4 @@
-package org.camunda.educational.nexttrip;
+package org.camunda.educational.nexttripprocess;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;

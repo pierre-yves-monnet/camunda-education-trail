@@ -1,9 +1,8 @@
-package org.camunda.educational.nexttrip;
+package org.camunda.educational.nexttripprocess;
 
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.springframework.boot.context.properties.bind.Name;
 import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;

@@ -1,6 +1,5 @@
-package org.camunda.educational.nexttrip;
+package org.camunda.educational.nexttripprocess;
 
-import org.camunda.bpm.engine.impl.bpmn.behavior.ServiceTaskDelegateExpressionActivityBehavior;
 import org.camunda.bpm.engine.rest.dto.runtime.ActivityInstanceDto;
 import org.camunda.bpm.engine.runtime.ActivityInstance;
 import org.camunda.bpm.engine.runtime.Job;
@@ -9,11 +8,7 @@ import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.mock.Mocks;
 import org.camunda.bpm.extension.junit5.test.ProcessEngineExtension;
-import org.camunda.bpm.extension.mockito.DelegateExpressions;
-import org.camunda.bpm.extension.mockito.mock.FluentJavaDelegateMock;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,8 +29,6 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.runtime
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.task;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.taskService;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.withVariables;
-
-import org.camunda.bpm.extension.mockito.CamundaMockito;
 
 @ExtendWith(ProcessEngineExtension.class)
 
