@@ -3,6 +3,7 @@ spring.datasource:
   username: sa
   password: sa
 spring.h2.console.enabled: true
+
 camunda.bpm:
   admin-user:
     id: demo
@@ -13,10 +14,36 @@ camunda.bpm:
     create: All Tasks
   job-execution:
     max-wait: 10000
+  authorization:
+    enabled: true
+  generic-properties:
+    properties:
+      historyCleanupBatchWindowStartTime: "16:35"
+      historyCleanupBatchWindowEndTime: "16:50"
+      historyCleanupStrategy: endTimeBased
+
+# LDAP integration
+# To enable/disable LDAP:
+# enabled to true or false
+  run:
+    ldap:
+      enabled: false
+      userIdAttribute: uid
+      userFirstnameAttribute: cn
+      userLastnameAttribute: sn
+      userSearchFilter: (objectClass=person)
+      serverUrl: ldap://localhost:10389
+      managerDn: uid=admin,ou=system
+      managerPassword: secret
+      baseDN: ou=system
+      groupSearchFilter: (objectClass=groupOfUniqueNames)
+      groupIdAttribute: cn
+      groupNameAttribute: cn
+      groupMemberAttribute: uniqueMember
+
 server.port: 8080
 
 
-spring.groovy.template:
-  enabled: false
-  check-template-location: false
+spring.groovy.template.enabled: false
+spring.groovy.template.check-template-location: false
 spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAutoConfiguration
