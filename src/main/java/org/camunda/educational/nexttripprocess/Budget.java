@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.logging.Logger;
 
 
-@Component
+@Component("Budget")
 public class Budget implements JavaDelegate {
     Logger logger = Logger.getLogger(Budget.class.getName());
 

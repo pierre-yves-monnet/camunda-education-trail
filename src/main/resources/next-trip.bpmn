@@ -43,7 +43,7 @@
       <bpmn:incoming>Flow_0o6w2ug</bpmn:incoming>
       <bpmn:outgoing>Flow_16kcl9b</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" name="Choose a trip">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="requester" label="Requester" type="string" />
@@ -84,7 +84,7 @@
             </camunda:properties>
           </camunda:formField>
         </camunda:formData>
-        <camunda:taskListener class="org.camunda.educational.nexttrip.ListenerCollectValidation" event="complete" id="createList" />
+        <camunda:taskListener class="org.camunda.educational.nexttripprocess.ListenerCollectValidation" event="complete" id="createList" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1ociqnp</bpmn:incoming>
       <bpmn:outgoing>Flow_1oc4wro</bpmn:outgoing>
@@ -302,6 +302,9 @@ return st.countTokens();</camunda:script>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="222" y="160" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="207" y="203" width="67" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0jbo35p_di" bpmnElement="ValidationByFamily">
         <dc:Bounds x="530" y="138" width="100" height="80" />
