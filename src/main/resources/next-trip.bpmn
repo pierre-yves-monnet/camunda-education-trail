@@ -35,7 +35,7 @@
         <camunda:formData>
           <camunda:formField id="country" label="Country" type="string" />
           <camunda:formField id="dateTrip" label="Date trip" type="date" />
-          <camunda:formField id="participants" label="Participants" type="string" />
+          <camunda:formField id="participants" label="Participants (; to separate name)" type="string" />
           <camunda:formField id="needPlane" label="Need Plane" type="boolean" />
           <camunda:formField id="needAirbnb" label="needAirbnb" type="boolean" />
         </camunda:formData>
